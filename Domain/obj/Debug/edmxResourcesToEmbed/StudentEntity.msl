@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelEntityStoreContainer" CdmEntityContainer="StudentEntity">
+    <FunctionImportMapping FunctionImportName="ManageStudent" FunctionName="ModelEntity.Store.ManageStudent" />
+    <EntitySetMapping Name="Courses">
+      <EntityTypeMapping TypeName="ModelEntity.Course">
+        <MappingFragment StoreEntitySet="Course">
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+          <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Students">
+      <EntityTypeMapping TypeName="ModelEntity.Student">
+        <MappingFragment StoreEntitySet="Student">
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="ModelEntity.Student">
+        <ModificationFunctionMapping>
+          <InsertFunction FunctionName="ModelEntity.Store.ManageStudent">
+            <ScalarProperty Name="DateOfBirth" ParameterName="DateofBirth" />
+            <ScalarProperty Name="Gender" ParameterName="Gender" />
+            <ScalarProperty Name="Name" ParameterName="Name" />
+            <ScalarProperty Name="StudentId" ParameterName="StudentId" />
+          </InsertFunction>
+          <UpdateFunction FunctionName="ModelEntity.Store.ManageStudent">
+            <ScalarProperty Name="DateOfBirth" ParameterName="DateofBirth" Version="Current" />
+            <ScalarProperty Name="Gender" ParameterName="Gender" Version="Current" />
+            <ScalarProperty Name="Name" ParameterName="Name" Version="Current" />
+            <ScalarProperty Name="StudentId" ParameterName="StudentId" Version="Current" />
+          </UpdateFunction>
+        </ModificationFunctionMapping>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StudentCourses">
+      <EntityTypeMapping TypeName="ModelEntity.StudentCourse">
+        <MappingFragment StoreEntitySet="StudentCourse">
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+          <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+          <ScalarProperty Name="StudentCourseId" ColumnName="StudentCourseId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="GetStudentById" FunctionName="ModelEntity.Store.GetStudentById">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ModelEntity.GetStudentById_Result2">
+          <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="Tempdt" ColumnName="Tempdt" />
+          <ScalarProperty Name="StudentCourses" ColumnName="StudentCourses" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ManageStudentCourse" FunctionName="ModelEntity.Store.ManageStudentCourse" />
+    <FunctionImportMapping FunctionImportName="ManageStudentWithCourse" FunctionName="ModelEntity.Store.ManageStudentWithCourse" />
+    <FunctionImportMapping FunctionImportName="SplitString" FunctionName="ModelEntity.Store.SplitString" />
+    <FunctionImportMapping FunctionImportName="DeleteStudent" FunctionName="ModelEntity.Store.DeleteStudent" />
+  </EntityContainerMapping>
+</Mapping>

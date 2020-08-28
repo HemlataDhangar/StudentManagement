@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ModelEntity" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="StudentEntity" annotation:LazyLoadingEnabled="true">
+    <FunctionImport Name="ManageStudent">
+      <Parameter Name="StudentId" Mode="In" Type="Int32" />
+      <Parameter Name="Name" Mode="In" Type="String" />
+      <Parameter Name="DateofBirth" Mode="In" Type="DateTime" />
+      <Parameter Name="Gender" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="Courses" EntityType="ModelEntity.Course" />
+    <EntitySet Name="Students" EntityType="ModelEntity.Student" />
+    <EntitySet Name="StudentCourses" EntityType="ModelEntity.StudentCourse" />
+    <AssociationSet Name="FK_StudentCourse_StudentCourse" Association="ModelEntity.FK_StudentCourse_StudentCourse">
+      <End Role="Course" EntitySet="Courses" />
+      <End Role="StudentCourse" EntitySet="StudentCourses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StudentCourse_Student" Association="ModelEntity.FK_StudentCourse_Student">
+      <End Role="Student" EntitySet="Students" />
+      <End Role="StudentCourse" EntitySet="StudentCourses" />
+    </AssociationSet>
+    <FunctionImport Name="GetStudentById" ReturnType="Collection(ModelEntity.GetStudentById_Result2)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ManageStudentCourse">
+      <Parameter Name="StudentId" Mode="In" Type="Int32" />
+      <Parameter Name="CourseIds" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="ManageStudentWithCourse">
+      <Parameter Name="StudentId" Mode="In" Type="Int32" />
+      <Parameter Name="Name" Mode="In" Type="String" />
+      <Parameter Name="DateofBirth" Mode="In" Type="DateTime" />
+      <Parameter Name="Gender" Mode="In" Type="String" />
+      <Parameter Name="CourseIds" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SplitString" IsComposable="true" ReturnType="Collection(String)">
+      <Parameter Name="Input" Mode="In" Type="String" />
+      <Parameter Name="Character" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="DeleteStudent">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+  <EntityType Name="Course">
+    <Key>
+      <PropertyRef Name="CourseId" />
+    </Key>
+    <Property Name="CourseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CourseName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="StudentCourses" Relationship="ModelEntity.FK_StudentCourse_StudentCourse" FromRole="Course" ToRole="StudentCourse" />
+  </EntityType>
+  <EntityType Name="Student">
+    <Key>
+      <PropertyRef Name="StudentId" />
+    </Key>
+    <Property Name="StudentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
+    <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="StudentCourses" Relationship="ModelEntity.FK_StudentCourse_Student" FromRole="Student" ToRole="StudentCourse" />
+  </EntityType>
+  <EntityType Name="StudentCourse">
+    <Key>
+      <PropertyRef Name="StudentCourseId" />
+    </Key>
+    <Property Name="StudentCourseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CourseId" Type="Int32" Nullable="false" />
+    <Property Name="StudentId" Type="Int32" Nullable="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Course" Relationship="ModelEntity.FK_StudentCourse_StudentCourse" FromRole="StudentCourse" ToRole="Course" />
+    <NavigationProperty Name="Student" Relationship="ModelEntity.FK_StudentCourse_Student" FromRole="StudentCourse" ToRole="Student" />
+  </EntityType>
+  <Association Name="FK_StudentCourse_StudentCourse">
+    <End Type="ModelEntity.Course" Role="Course" Multiplicity="1" />
+    <End Type="ModelEntity.StudentCourse" Role="StudentCourse" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="CourseId" />
+      </Principal>
+      <Dependent Role="StudentCourse">
+        <PropertyRef Name="CourseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StudentCourse_Student">
+    <End Type="ModelEntity.Student" Role="Student" Multiplicity="1" />
+    <End Type="ModelEntity.StudentCourse" Role="StudentCourse" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="StudentId" />
+      </Principal>
+      <Dependent Role="StudentCourse">
+        <PropertyRef Name="StudentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="GetStudentById_Result">
+    <Property Type="Int32" Name="StudentId" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="true" MaxLength="100" />
+    <Property Type="DateTime" Name="DateOfBirth" Nullable="true" />
+    <Property Type="String" Name="Gender" Nullable="true" MaxLength="10" />
+    <Property Type="Boolean" Name="IsActive" Nullable="true" />
+    <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="ModifiedDate" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="GetStudentById_Result1">
+    <Property Type="Int32" Name="StudentId" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="true" MaxLength="100" />
+    <Property Type="DateTime" Name="DateOfBirth" Nullable="true" />
+    <Property Type="String" Name="Gender" Nullable="true" MaxLength="10" />
+    <Property Type="Boolean" Name="IsActive" Nullable="true" />
+    <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="ModifiedDate" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="Tempdt" Nullable="false" Precision="23" />
+    <Property Type="String" Name="Test" Nullable="false" MaxLength="2" />
+  </ComplexType>
+  <ComplexType Name="GetStudentById_Result2">
+    <Property Type="Int32" Name="StudentId" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="true" MaxLength="100" />
+    <Property Type="DateTime" Name="DateOfBirth" Nullable="true" />
+    <Property Type="String" Name="Gender" Nullable="true" MaxLength="10" />
+    <Property Type="Boolean" Name="IsActive" Nullable="true" />
+    <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="ModifiedDate" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="Tempdt" Nullable="false" Precision="23" />
+    <Property Type="String" Name="StudentCourses" Nullable="false" MaxLength="2" />
+  </ComplexType>
+</Schema>

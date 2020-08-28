@@ -1,0 +1,12 @@
+D:\POC\Student POC 22 August 2020\Student\Domain\bin\Debug\Domain.dll.config
+D:\POC\Student POC 22 August 2020\Student\Domain\bin\Debug\Domain.dll
+D:\POC\Student POC 22 August 2020\Student\Domain\bin\Debug\Domain.pdb
+D:\POC\Student POC 22 August 2020\Student\Domain\bin\Debug\EntityFramework.dll
+D:\POC\Student POC 22 August 2020\Student\Domain\bin\Debug\EntityFramework.SqlServer.dll
+D:\POC\Student POC 22 August 2020\Student\Domain\bin\Debug\EntityFramework.xml
+D:\POC\Student POC 22 August 2020\Student\Domain\bin\Debug\EntityFramework.SqlServer.xml
+D:\POC\Student POC 22 August 2020\Student\Domain\obj\Debug\Domain.csprojAssemblyReference.cache
+D:\POC\Student POC 22 August 2020\Student\Domain\obj\Debug\Domain.csproj.CoreCompileInputs.cache
+D:\POC\Student POC 22 August 2020\Student\Domain\obj\Debug\Domain.csproj.CopyComplete
+D:\POC\Student POC 22 August 2020\Student\Domain\obj\Debug\Domain.dll
+D:\POC\Student POC 22 August 2020\Student\Domain\obj\Debug\Domain.pdb
